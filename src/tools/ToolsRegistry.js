@@ -36,7 +36,7 @@ export default class ToolRegistry extends EventEmitter {
 
   /** 
    * Sets a drawing tool by providing an implementation, or the ID
-   * of a built-in toll.
+   * of a built-in tool.
    */
   setCurrent = toolOrId => {
     const Tool = (typeof toolOrId === 'string' || toolOrId instanceof String) ?
