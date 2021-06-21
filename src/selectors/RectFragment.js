@@ -63,16 +63,11 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
   const g = document.createElementNS(SVG_NAMESPACE, 'g');
 
   const outerRect  = document.createElementNS(SVG_NAMESPACE, 'rect');
-  const innerRect  = document.createElementNS(SVG_NAMESPACE, 'rect');
-
-  innerRect.setAttribute('class', 'a9s-inner');
-  setXYWH(innerRect, x, y, w, h);
 
   outerRect.setAttribute('class', 'a9s-outer');
   setXYWH(outerRect, x, y, w, h);
 
   g.appendChild(outerRect);
-  g.appendChild(innerRect);
 
   return g;
 }
@@ -91,10 +86,8 @@ export const getRectSize = g => {
 
 /** Applies the (x, y, w, h)-values to the rects in the SVG group **/
 export const setRectSize = (g, x, y, w, h) => {
-  const innerRect = g.querySelector('.a9s-inner');
   const outerRect = g.querySelector('.a9s-outer');
 
-  setXYWH(innerRect, x, y, w, h);
   setXYWH(outerRect, x, y, w, h);
 }
 

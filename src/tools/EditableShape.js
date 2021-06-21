@@ -64,14 +64,10 @@ export default class EditableShape extends EventEmitter {
 
     const radius = this.config.handleRadius || 6;
 
-    const inner = drawCircle(radius);
-    inner.setAttribute('class', 'a9s-handle-inner')
-
     const outer = drawCircle(radius + 1);
     outer.setAttribute('class', 'a9s-handle-outer')
 
     group.appendChild(outer);
-    group.appendChild(inner);
 
     containerGroup.appendChild(group);
     return containerGroup;
@@ -80,10 +76,6 @@ export default class EditableShape extends EventEmitter {
   setHandleXY = (handle, x, y) => {
     handle.setAttribute('transform-origin', `${x}px ${y}px`);	
     handle.firstChild.setAttribute('transform-origin', `${x}px ${y}px`);	
-
-    const inner = handle.querySelector('.a9s-handle-inner');	
-    inner.setAttribute('cx', x);	
-    inner.setAttribute('cy', y);	
 
     const outer = handle.querySelector('.a9s-handle-outer');	
     outer.setAttribute('cx', x);	

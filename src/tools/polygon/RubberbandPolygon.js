@@ -17,15 +17,11 @@ export default class RubberbandPolygon {
     this.outer = document.createElementNS(SVG_NAMESPACE, 'polygon');
     this.outer.setAttribute('class', 'a9s-outer');
 
-    this.inner = document.createElementNS(SVG_NAMESPACE, 'polygon');
-    this.inner.setAttribute('class', 'a9s-inner');
-
     this.setPoints(this.points);
 
-    this.mask = new Mask(env.image, this.inner);
+    this.mask = new Mask(env.image, this.outer);
 
     this.polygon.appendChild(this.outer);
-    this.polygon.appendChild(this.inner);
 
     // Additionally, selection remains hidden until 
     // the user actually moves the mouse
@@ -40,7 +36,6 @@ export default class RubberbandPolygon {
   setPoints = points => {
     const attr = points.map(t => `${t[0]},${t[1]}`).join(' ');
     this.outer.setAttribute('points', attr);
-    this.inner.setAttribute('points', attr);
   }
 
   getBoundingClientRect = () =>

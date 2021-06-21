@@ -5,9 +5,9 @@ import { format, setFormatterElSize } from '../../util/Formatting';
 import Mask from './PolygonMask';
 
 const getPoints = shape => {
-  // Could just be Array.from(shape.querySelector('.inner').points) but...
+  // Could just be Array.from(shape.querySelector('.outer').points) but...
   // IE11 :-(
-  const pointList = shape.querySelector('.a9s-inner').points;
+  const pointList = shape.querySelector('.a9s-outer').points;
   const points = [];
 
   for (let i=0; i<pointList.numberOfItems; i++) {
@@ -18,7 +18,7 @@ const getPoints = shape => {
 }
 
 const getBBox = shape =>
-  shape.querySelector('.a9s-inner').getBBox();
+  shape.querySelector('.a9s-outer').getBBox();
 
 /**
  * An editable polygon shape.
@@ -37,7 +37,6 @@ export default class EditablePolygon extends EditableShape {
     //   <path class="a9s-selection mask"... />
     //   <g> <-- return this node as .element
     //     <polygon class="a9s-outer" ... />
-    //     <polygon class="a9s-inner" ... />
     //     <g class="a9s-handle" ...> ... </g>
     //     <g class="a9s-handle" ...> ... </g>
     //     <g class="a9s-handle" ...> ... </g>
@@ -49,10 +48,10 @@ export default class EditablePolygon extends EditableShape {
     this.containerGroup = document.createElementNS(SVG_NAMESPACE, 'g');
 
     this.shape = drawEmbeddedSVG(annotation);
-    this.shape.querySelector('.a9s-inner')
+    this.shape.querySelector('.a9s-outer')
       .addEventListener('mousedown', this.onGrab(this.shape));
 
-    this.mask = new Mask(env.image, this.shape.querySelector('.a9s-inner'));
+    this.mask = new Mask(env.image, this.shape.querySelector('.a9s-outer'));
     
     this.containerGroup.appendChild(this.mask.element);
 
@@ -86,9 +85,6 @@ export default class EditablePolygon extends EditableShape {
       Math.round(10 * num) / 10;
 
     const str = points.map(pt => `${round(pt.x)},${round(pt.y)}`).join(' ');
-
-    const inner = this.shape.querySelector('.a9s-inner');
-    inner.setAttribute('points', str);
 
     const outer = this.shape.querySelector('.a9s-outer');
     outer.setAttribute('points', str);

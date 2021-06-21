@@ -31,20 +31,14 @@
     vector-effect:non-scaling-stroke;
   }
 
-  .a9s-inner {
-    stroke:#fff;
-    stroke-width:1px;
-    fill: transparent;
-  }
-
-  .a9s-inner:hover {
-    stroke:#fff000;
-  }
-
   .a9s-outer {
     stroke:rgba(0, 0, 0, 0.7);
     stroke-width:3px;
-    fill: none;
+    fill: transparent;
+  }
+
+  .a9s-outer:hover {
+    stroke:#fff000;
   }
 
   .a9s-formatter-el {
@@ -53,18 +47,18 @@
 
 }
 
-.a9s-annotation.selected .a9s-inner, .a9s-selection .a9s-inner {
+.a9s-annotation.selected .a9s-outer, .a9s-selection .a9s-outer {
   stroke:#fff000;
 } 
 
 .a9s-annotation.editable {
 
-  .a9s-inner {
+  .a9s-outer {
     stroke:#fff000;
     cursor:move;
   }
 
-  .a9s-inner:hover {
+  .a9s-outer:hover {
     fill:rgba(255, 240, 0, 0.1);
   }
 
@@ -73,17 +67,12 @@
 .a9s-handle {
   cursor:move;
 
-  .a9s-handle-inner {
-    stroke:#fff000;
-    fill:#000;  
-  }
-
   .a9s-handle-outer {
     stroke:#000;
-    fill:#fff;
+    fill:#000;
   }
 }
 
-.a9s-handle:hover .a9s-handle-inner {
+.a9s-handle:hover .a9s-handle-outer {
   fill:#fff000;
 }

@@ -60,28 +60,22 @@ export const svgFragmentToShape = annotation => {
 export const drawEmbeddedSVG = annotation => {
   const shape = svgFragmentToShape(annotation);
 
-  // Because we're nitpicky, we don't just draw the shape,
-  // but duplicate it, so we can have inner and an outer lines
   const g = document.createElementNS(SVG_NAMESPACE, 'g');
-
-  const inner = shape.cloneNode(true);
-  inner.setAttribute('class', 'a9s-inner');
 
   const outer = shape.cloneNode(true);
   outer.setAttribute('class', 'a9s-outer');
 
   g.appendChild(outer);
-  g.appendChild(inner);
 
   return g;
 }
 
 export const toSVGTarget = (shape, image) => {
-  const inner = shape.querySelector('.a9s-inner').cloneNode(true);
-  inner.removeAttribute('class');
-  inner.removeAttribute('xmlns');
+  const outer = shape.querySelector('.a9s-outer').cloneNode(true);
+  outer.removeAttribute('class');
+  outer.removeAttribute('xmlns');
 
-  let serialized = inner.outerHTML || new XMLSerializer().serializeToString(inner);
+  let serialized = outer.outerHTML || new XMLSerializer().serializeToString(outer);
   serialized = serialized.replace(` xmlns="${SVG_NAMESPACE}"`, '');
 
   return {

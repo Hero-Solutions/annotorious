@@ -52,11 +52,9 @@ export const format = (shape, annotation, formatter) => {
 
     if (style) {
       const outer = shape.querySelector('.a9s-outer');
-      const inner = shape.querySelector('.a9s-inner');
 
-      if (outer && inner) {
-        outer.setAttribute('style', 'display:none');
-        inner.setAttribute('style', style);
+      if (outer) {
+        outer.setAttribute('style', style);
       } else {
         shape.setAttribute('style', style);
       }

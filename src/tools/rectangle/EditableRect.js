@@ -30,7 +30,6 @@ export default class EditableRect extends EditableShape {
     //   <path class="a9s-selection mask"... />
     //   <g> <-- return this node as .element
     //     <rect class="a9s-outer" ... />
-    //     <rect class="a9s-inner" ... />
     //     <g class="a9s-handle" ...> ... </g>
     //     <g class="a9s-handle" ...> ... </g>
     //     <g class="a9s-handle" ...> ... </g>
@@ -50,7 +49,7 @@ export default class EditableRect extends EditableShape {
     this.elementGroup.setAttribute('class', 'a9s-annotation editable selected');
 
     this.rectangle = drawRect(x, y, w, h);
-    this.rectangle.querySelector('.a9s-inner')
+    this.rectangle.querySelector('.a9s-outer')
       .addEventListener('mousedown', this.onGrab(this.rectangle));
 
     this.elementGroup.appendChild(this.rectangle);    
