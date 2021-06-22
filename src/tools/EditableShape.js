@@ -76,12 +76,12 @@ export default class EditableShape extends EventEmitter {
   }
 
   setHandleXY = (handle, x, y) => {
-    const inner = handle.querySelector('.a9s-handle-inner');  
-    inner.setAttribute('cx', x);  
-    inner.setAttribute('cy', y);  
+    const inner = handle.querySelector('.a9s-handle-inner');	
+    inner.setAttribute('cx', x);	
+    inner.setAttribute('cy', y);	
 
-    const outer = handle.querySelector('.a9s-handle-outer');  
-    outer.setAttribute('cx', x);  
+    const outer = handle.querySelector('.a9s-handle-outer');	
+    outer.setAttribute('cx', x);	
     outer.setAttribute('cy', y);
   }
 
