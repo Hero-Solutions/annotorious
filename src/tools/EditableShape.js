@@ -49,10 +49,8 @@ export default class EditableShape extends EventEmitter {
   drawHandle = (x, y) => {
     const containerGroup = document.createElementNS(SVG_NAMESPACE, 'g');
     containerGroup.setAttribute('class', 'a9s-handle');
-    containerGroup.setAttribute('transform-origin', `${x}px ${y}px`);
 
     const group = document.createElementNS(SVG_NAMESPACE, 'g');
-    group.setAttribute('transform-origin', `${x}px ${y}px`);
 
     const drawCircle = r => {
       const c = document.createElementNS(SVG_NAMESPACE, 'circle');
@@ -64,21 +62,26 @@ export default class EditableShape extends EventEmitter {
 
     const radius = this.config.handleRadius || 6;
 
+    const inner = drawCircle(radius);
+    inner.setAttribute('class', 'a9s-handle-inner')
+
     const outer = drawCircle(radius + 1);
     outer.setAttribute('class', 'a9s-handle-outer')
 
     group.appendChild(outer);
+    group.appendChild(inner);
 
     containerGroup.appendChild(group);
     return containerGroup;
   }
 
   setHandleXY = (handle, x, y) => {
-    handle.setAttribute('transform-origin', `${x}px ${y}px`);	
-    handle.firstChild.setAttribute('transform-origin', `${x}px ${y}px`);	
+    const inner = handle.querySelector('.a9s-handle-inner');  
+    inner.setAttribute('cx', x);  
+    inner.setAttribute('cy', y);  
 
-    const outer = handle.querySelector('.a9s-handle-outer');	
-    outer.setAttribute('cx', x);	
+    const outer = handle.querySelector('.a9s-handle-outer');  
+    outer.setAttribute('cx', x);  
     outer.setAttribute('cy', y);
   }
 
@@ -90,12 +93,16 @@ export default class EditableShape extends EventEmitter {
     }
   }
 
-  scaleHandles = (scaleOrScaleX, optScaleY) => {
-    const scaleX = scaleOrScaleX;
-    const scaleY = optScaleY || scaleOrScaleX;
+  scaleHandles = scale => {
+    this.handles.forEach(handle => {
+      const inner = handle.querySelector('.a9s-handle-inner');
+      const outer = handle.querySelector('.a9s-handle-outer');
 
-    this.handles.forEach(handle => 
-      handle.firstChild.setAttribute('transform', `scale(${scaleX}, ${scaleY})`));
+      const radius = scale * (this.config.handleRadius || 6);
+
+      inner.setAttribute('r', radius);
+      outer.setAttribute('r', radius);
+    });
   }
 
   getSVGPoint = evt => {
@@ -114,7 +121,7 @@ export default class EditableShape extends EventEmitter {
   }
 
   // Implementations MUST override theis method
-  get element() {	
+  get element() { 
     throw new Error(IMPLEMENTATION_MISSING);
   }
 
