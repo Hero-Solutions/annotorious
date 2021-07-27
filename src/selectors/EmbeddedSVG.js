@@ -78,12 +78,22 @@ export const toSVGTarget = (shape, styleClass, image) => {
   let serialized = outer.outerHTML || new XMLSerializer().serializeToString(outer);
   serialized = serialized.replace(` xmlns="${SVG_NAMESPACE}"`, '');
 
-  return {
-    source: image.src,
-    styleClass: styleClass,
-    selector: {
-      type: "SvgSelector",
-      value: `<svg>${serialized}</svg>`
+  if(styleClass) {
+    return {
+      source: image.src,
+      styleClass: styleClass,
+      selector: {
+        type: "SvgSelector",
+        value: `<svg>${serialized}</svg>`
+      }
+    }
+  } else {
+    return {
+      source: image.src,
+      selector: {
+        type: "SvgSelector",
+        value: `<svg>${serialized}</svg>`
+      }
     }
   }
 }

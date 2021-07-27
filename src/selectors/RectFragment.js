@@ -20,15 +20,29 @@ export const parseRectFragment = annotation => {
 }
 
 /** Serializes a (x, y, w, h)-tuple as Media Fragment selector **/
-export const toRectFragment = (x, y, w, h, styleClass, image) => ({
-  source: image.src,
-  styleClass: styleClass,
-  selector: {
-    type: "FragmentSelector",
-    conformsTo: "http://www.w3.org/TR/media-frags/",
-    value: `xywh=pixel:${x},${y},${w},${h}`
+
+export const toRectFragment = (x, y, w, h, styleClass, image) => {
+  if(styleClass) {
+    return {
+      source: image.src,
+      styleClass: styleClass,
+      selector: {
+        type: "FragmentSelector",
+        conformsTo: "http://www.w3.org/TR/media-frags/",
+        value: `xywh=pixel:${x},${y},${w},${h}`
+      }
+    }
+  } else {
+    return {
+      source: image.src,
+      selector: {
+        type: "FragmentSelector",
+        conformsTo: "http://www.w3.org/TR/media-frags/",
+        value: `xywh=pixel:${x},${y},${w},${h}`
+      }
+    }
   }
-});
+}
 
 /** Shorthand to apply the given (x, y, w, h) to the SVG shape **/
 const setXYWH = (shape, x, y, w, h) => {
