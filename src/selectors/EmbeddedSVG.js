@@ -71,7 +71,7 @@ export const drawEmbeddedSVG = annotation => {
 }
 
 export const toSVGTarget = (shape, image) => {
-  const outer = shape.querySelectorAll('.a9s-outer').cloneNode(true);
+  const outer = shape.querySelectorAll('.a9s-outer')[0].cloneNode(true);
   outer.removeAttribute('class');
   outer.removeAttribute('xmlns');
 

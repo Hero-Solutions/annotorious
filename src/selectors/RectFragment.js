@@ -74,7 +74,7 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
 
 /** Gets the (x, y, w, h)-values from the attributes of the SVG group **/
 export const getRectSize = g => {
-  const outerRect = g.querySelectorAll('.a9s-outer');
+  const outerRect = g.querySelectorAll('.a9s-outer')[0];
   
   const x = parseFloat(outerRect.getAttribute('x'));
   const y = parseFloat(outerRect.getAttribute('y'));
@@ -86,7 +86,7 @@ export const getRectSize = g => {
 
 /** Applies the (x, y, w, h)-values to the rects in the SVG group **/
 export const setRectSize = (g, x, y, w, h) => {
-  const outerRect = g.querySelectorAll('.a9s-outer');
+  const outerRect = g.querySelectorAll('.a9s-outer')[0];
 
   setXYWH(outerRect, x, y, w, h);
 }

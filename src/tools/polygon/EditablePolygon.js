@@ -7,7 +7,7 @@ import Mask from './PolygonMask';
 const getPoints = shape => {
   // Could just be Array.from(shape.querySelector('.outer').points) but...
   // IE11 :-(
-  const pointList = shape.querySelectorAll('.a9s-outer').points;
+  const pointList = shape.querySelectorAll('.a9s-outer')[0].points;
   const points = [];
 
   for (let i=0; i<pointList.numberOfItems; i++) {
@@ -18,7 +18,7 @@ const getPoints = shape => {
 }
 
 const getBBox = shape =>
-  shape.querySelectorAll('.a9s-outer').getBBox();
+  shape.querySelectorAll('.a9s-outer')[0].getBBox();
 
 /**
  * An editable polygon shape.
@@ -48,10 +48,10 @@ export default class EditablePolygon extends EditableShape {
     this.containerGroup = document.createElementNS(SVG_NAMESPACE, 'g');
 
     this.shape = drawEmbeddedSVG(annotation);
-    this.shape.querySelectorAll('.a9s-outer')
+    this.shape.querySelectorAll('.a9s-outer')[0]
       .addEventListener('mousedown', this.onGrab(this.shape));
 
-    this.mask = new Mask(env.image, this.shape.querySelectorAll('.a9s-outer'));
+    this.mask = new Mask(env.image, this.shape.querySelectorAll('.a9s-outer')[0]);
     
     this.containerGroup.appendChild(this.mask.element);
 
@@ -86,7 +86,7 @@ export default class EditablePolygon extends EditableShape {
 
     const str = points.map(pt => `${round(pt.x)},${round(pt.y)}`).join(' ');
 
-    const outer = this.shape.querySelectorAll('.a9s-outer');
+    const outer = this.shape.querySelectorAll('.a9s-outer')[0];
     outer.setAttribute('points', str);
 
     this.mask.redraw();

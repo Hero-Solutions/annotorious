@@ -49,7 +49,7 @@ export default class EditableRect extends EditableShape {
     this.elementGroup.setAttribute('class', 'a9s-annotation editable selected');
 
     this.rectangle = drawRect(x, y, w, h);
-    this.rectangle.querySelector('.a9s-outer')
+    this.rectangle.querySelectorAll('.a9s-outer')[0]
       .addEventListener('mousedown', this.onGrab(this.rectangle));
 
     this.elementGroup.appendChild(this.rectangle);    
