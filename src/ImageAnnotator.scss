@@ -17,6 +17,23 @@
           user-select:none;
 }
 
+.a9s-annotationlayer.has-crosshair {
+  cursor:none;
+
+  .a9s-crosshair line {
+    stroke-width:1px;
+    stroke:rgba(0, 0, 0, 0.5);
+    pointer-events:none;
+    vector-effect:non-scaling-stroke;
+    shape-rendering:crispEdges;
+  }
+
+  .a9s-annotation *, .a9sselection * {
+    cursor:none;
+  }
+
+}
+
 .a9s-selection-mask {
   stroke:none;
   fill:transparent;
