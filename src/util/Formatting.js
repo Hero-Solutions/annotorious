@@ -51,7 +51,7 @@ export const format = (shape, annotation, formatter) => {
       addClass(shape, className);
 
     if (style) {
-      const outer = shape.querySelector('.a9s-outer');
+      const outer = shape.querySelectorAll('.a9s-outer');
 
       if (outer) {
         outer.setAttribute('style', style);
