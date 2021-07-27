@@ -87,12 +87,10 @@ export default class EditableShape extends EventEmitter {
 
   scaleHandles = scale => {
     this.handles.forEach(handle => {
-      const inner = handle.querySelector('.a9s-handle-inner');
       const outer = handle.querySelector('.a9s-handle-outer');
 
       const radius = scale * (this.config.handleRadius || 6);
 
-      inner.setAttribute('r', radius);
       outer.setAttribute('r', radius);
     });
   }
