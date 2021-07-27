@@ -126,7 +126,11 @@ export default class AnnotationLayer extends EventEmitter {
   addAnnotation = annotation => {
     const g = drawShape(annotation);
 
-    g.setAttribute('class', 'a9s-annotation');
+    if(annotation.target.styleClass) {
+      g.setAttribute('class', 'a9s-annotation ' + annotation.target.styleClass);
+    } else {
+      g.setAttribute('class', 'a9s-annotation');
+    }
     g.setAttribute('data-id', annotation.id);
 
     g.annotation = annotation;

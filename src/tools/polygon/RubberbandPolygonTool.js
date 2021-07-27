@@ -22,7 +22,7 @@ export default class RubberbandPolygonTool extends Tool {
       dblClick: this.onDblClick
     });
     
-    this.rubberband = new RubberbandPolygon([ x, y ], this.g, this.env);
+    this.rubberband = new RubberbandPolygon([ x, y ], this.g, this.config, this.env);
   }
 
   stop = () => {

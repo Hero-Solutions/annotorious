@@ -20,8 +20,9 @@ export const parseRectFragment = annotation => {
 }
 
 /** Serializes a (x, y, w, h)-tuple as Media Fragment selector **/
-export const toRectFragment = (x, y, w, h, image) => ({
+export const toRectFragment = (x, y, w, h, styleClass, image) => ({
   source: image.src,
+  styleClass: styleClass,
   selector: {
     type: "FragmentSelector",
     conformsTo: "http://www.w3.org/TR/media-frags/",
@@ -74,7 +75,7 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
 
 /** Gets the (x, y, w, h)-values from the attributes of the SVG group **/
 export const getRectSize = g => {
-  const outerRect = g.querySelectorAll('.a9s-outer')[0];
+  const outerRect = g.querySelector('.a9s-outer');
   
   const x = parseFloat(outerRect.getAttribute('x'));
   const y = parseFloat(outerRect.getAttribute('y'));
@@ -86,7 +87,7 @@ export const getRectSize = g => {
 
 /** Applies the (x, y, w, h)-values to the rects in the SVG group **/
 export const setRectSize = (g, x, y, w, h) => {
-  const outerRect = g.querySelectorAll('.a9s-outer')[0];
+  const outerRect = g.querySelector('.a9s-outer');
 
   setXYWH(outerRect, x, y, w, h);
 }

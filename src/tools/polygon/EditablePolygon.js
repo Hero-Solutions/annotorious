@@ -18,7 +18,7 @@ const getPoints = shape => {
 }
 
 const getBBox = shape =>
-  shape.querySelectorAll('.a9s-outer')[0].getBBox();
+  shape.querySelector('.a9s-outer').getBBox();
 
 /**
  * An editable polygon shape.
@@ -44,14 +44,19 @@ export default class EditablePolygon extends EditableShape {
     //   </g> 
     // </g>
 
+    this.styleClass = annotation.target.styleClass;
+
     // 'g' for the editable polygon compound shape
     this.containerGroup = document.createElementNS(SVG_NAMESPACE, 'g');
+    if(this.styleClass) {
+      this.containerGroup.setAttribute('class', this.styleClass);
+    }
 
     this.shape = drawEmbeddedSVG(annotation);
-    this.shape.querySelectorAll('.a9s-outer')[0]
+    this.shape.querySelector('.a9s-outer')
       .addEventListener('mousedown', this.onGrab(this.shape));
 
-    this.mask = new Mask(env.image, this.shape.querySelectorAll('.a9s-outer')[0]);
+    this.mask = new Mask(env.image, this.shape.querySelector('.a9s-outer'));
     
     this.containerGroup.appendChild(this.mask.element);
 
@@ -86,7 +91,7 @@ export default class EditablePolygon extends EditableShape {
 
     const str = points.map(pt => `${round(pt.x)},${round(pt.y)}`).join(' ');
 
-    const outer = this.shape.querySelectorAll('.a9s-outer')[0];
+    const outer = this.shape.querySelector('.a9s-outer');
     outer.setAttribute('points', str);
 
     this.mask.redraw();
@@ -123,7 +128,7 @@ export default class EditablePolygon extends EditableShape {
         this.setPoints(updatedPoints);
         updatedPoints.forEach((pt, idx) => this.setHandleXY(this.handles[idx], pt.x, pt.y));
         
-        this.emit('update', toSVGTarget(this.shape, this.env.image));
+        this.emit('update', toSVGTarget(this.shape, this.styleClass, this.env.image));
       } else {
         const handleIdx = this.handles.indexOf(this.grabbedElem);
 
@@ -133,7 +138,7 @@ export default class EditablePolygon extends EditableShape {
         this.setPoints(updatedPoints);
         this.setHandleXY(this.handles[handleIdx], pos.x, pos.y);
 
-        this.emit('update', toSVGTarget(this.shape, this.env.image));
+        this.emit('update', toSVGTarget(this.shape, this.styleClass, this.env.image));
       }
     }
   }

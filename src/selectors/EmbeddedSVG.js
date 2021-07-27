@@ -70,8 +70,8 @@ export const drawEmbeddedSVG = annotation => {
   return g;
 }
 
-export const toSVGTarget = (shape, image) => {
-  const outer = shape.querySelectorAll('.a9s-outer')[0].cloneNode(true);
+export const toSVGTarget = (shape, styleClass, image) => {
+  const outer = shape.querySelector('.a9s-outer').cloneNode(true);
   outer.removeAttribute('class');
   outer.removeAttribute('xmlns');
 
@@ -80,6 +80,7 @@ export const toSVGTarget = (shape, image) => {
 
   return {
     source: image.src,
+    styleClass: styleClass,
     selector: {
       type: "SvgSelector",
       value: `<svg>${serialized}</svg>`

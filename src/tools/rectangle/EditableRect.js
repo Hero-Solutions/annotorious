@@ -37,8 +37,13 @@ export default class EditableRect extends EditableShape {
     //   </g> 
     // </g>
 
+    this.styleClass = annotation.target.styleClass;
+
     // 'g' for the editable rect compound shape
     this.containerGroup = document.createElementNS(SVG_NAMESPACE, 'g');
+    if(this.styleClass) {
+      this.containerGroup.setAttribute('class', this.styleClass);
+    }
 
     this.mask = drawRectMask(env.image, x, y, w, h);
     this.mask.setAttribute('class', 'a9s-selection-mask');
@@ -49,7 +54,7 @@ export default class EditableRect extends EditableShape {
     this.elementGroup.setAttribute('class', 'a9s-annotation editable selected');
 
     this.rectangle = drawRect(x, y, w, h);
-    this.rectangle.querySelectorAll('.a9s-outer')[0]
+    this.rectangle.querySelector('.a9s-outer')
       .addEventListener('mousedown', this.onGrab(this.rectangle));
 
     this.elementGroup.appendChild(this.rectangle);    
@@ -146,7 +151,7 @@ export default class EditableRect extends EditableShape {
         const y = constrain(pos.y - this.mouseOffset.y, naturalHeight - h);
 
         this.setSize(x, y, w, h); 
-        this.emit('update', toRectFragment(x, y, w, h, this.env.image)); 
+        this.emit('update', toRectFragment(x, y, w, h, this.styleClass, this.env.image)); 
       } else {
         // Mouse position replaces one of the corner coords, depending
         // on which handle is the grabbed element
@@ -155,7 +160,7 @@ export default class EditableRect extends EditableShape {
           this.handles[handleIdx + 2] : this.handles[handleIdx - 2];
 
         const { x, y, w, h } = this.stretchCorners(handleIdx, oppositeHandle, pos);
-        this.emit('update', toRectFragment(x, y, w, h, this.env.image)); 
+        this.emit('update', toRectFragment(x, y, w, h, this.styleClass, this.env.image)); 
       }
     }
   }

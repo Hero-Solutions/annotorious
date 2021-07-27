@@ -14,13 +14,17 @@ import {
  */
 export default class RubberbandRect {
 
-  constructor(anchorX, anchorY, g, env) {
+  constructor(anchorX, anchorY, g, config, env) {
     this.anchor = [ anchorX, anchorY ];
     this.opposite = [ anchorX, anchorY ];
 
     this.env = env;
 
     this.group = document.createElementNS(SVG_NAMESPACE, 'g');
+    this.styleClass = config.styleClass;
+    if(config.styleClass) {
+      this.group.setAttribute('class', config.styleClass);
+    }
     
     this.mask = drawRectMask(env.image, anchorX, anchorY, 2, 2);
     this.mask.setAttribute('class', 'a9s-selection-mask');
@@ -75,7 +79,7 @@ export default class RubberbandRect {
 
   toSelection = () => {
     const { x, y, w, h } = this.bbox;
-    return new Selection(toRectFragment(x, y, w, h, this.env.image));
+    return new Selection(toRectFragment(x, y, w, h, this.styleClass, this.env.image));
   }
 
   destroy = () => {
