@@ -2,16 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Emitter from 'tiny-emitter';
 import ImageAnnotator from './ImageAnnotator';
-import { 
-  Selection, 
-  WebAnnotation, 
-  addPolyfills,
-  createEnvironment, 
-  setLocale 
+import {
+  Selection,
+  WebAnnotation,
+  createEnvironment,
+  setLocale
 } from '@recogito/recogito-client-core';
-
-import '@babel/polyfill';
-addPolyfills(); // Some extra polyfills that babel doesn't include
 
 import '@recogito/recogito-client-core/themes/default';
 
@@ -75,6 +71,7 @@ export class Annotorious {
         onAnnotationUpdated={this.handleAnnotationUpdated}
         onAnnotationDeleted={this.handleAnnotationDeleted}
         onCancelSelected={this.handleCancelSelected}
+        onClickAnnotation={this.handleClickAnnotation}
         onMouseEnterAnnotation={this.handleMouseEnterAnnotation}
         onMouseLeaveAnnotation={this.handleMouseLeaveAnnotation} />, this._appContainerEl);
   }
@@ -89,14 +86,17 @@ export class Annotorious {
   handleAnnotationDeleted = annotation =>
     this._emitter.emit('deleteAnnotation', annotation.underlying);
 
-  handleAnnotationSelected = annotation =>
-    this._emitter.emit('selectAnnotation', annotation.underlying);
+  handleAnnotationSelected = (annotation, elem) =>
+    this._emitter.emit('selectAnnotation', annotation.underlying, elem);
 
   handleAnnotationUpdated = (annotation, previous) =>
     this._emitter.emit('updateAnnotation', annotation.underlying, previous.underlying);
 
   handleCancelSelected = annotation =>
     this._emitter.emit('cancelSelected', annotation.underlying);
+
+  handleClickAnnotation = (annotation, elem) =>
+    this._emitter.emit('clickAnnotation', annotation.underlying, elem);
 
   handleSelectionCreated = selection =>
     this._emitter.emit('createSelection', selection.underlying);
@@ -107,11 +107,11 @@ export class Annotorious {
   handleSelectionTargetChanged = target =>
     this._emitter.emit('changeSelectionTarget', target);
 
-  handleMouseEnterAnnotation = (annotation, evt) =>
-    this._emitter.emit('mouseEnterAnnotation', annotation.underlying, evt);
+  handleMouseEnterAnnotation = (annotation, elem) =>
+    this._emitter.emit('mouseEnterAnnotation', annotation.underlying, elem);
 
-  handleMouseLeaveAnnotation = (annotation, evt) =>
-    this._emitter.emit('mouseLeaveAnnotation', annotation.underlying, evt);
+  handleMouseLeaveAnnotation = (annotation, elem) =>
+    this._emitter.emit('mouseLeaveAnnotation', annotation.underlying, elem);
 
   /******************/
   /*  External API  */
@@ -129,8 +129,8 @@ export class Annotorious {
 
   cancelSelected = () =>
     this._app.current.cancelSelected();
-  
-  clearAnnotations = () => 
+
+  clearAnnotations = () =>
     this.setAnnotations([]);
 
   clearAuthInfo = () =>
@@ -143,7 +143,15 @@ export class Annotorious {
   set disableEditor(disabled) {
     this._app.current.disableEditor = disabled;
   }
-  
+
+  get disableSelect() {
+    return this._app.current.disableSelect;
+  }
+
+  set disableSelect(select) {
+    this._app.current.disableSelect = select;
+  }
+
   destroy = () => {
     ReactDOM.unmountComponentAtNode(this._appContainerEl);
     this._element.parentNode.insertBefore(this._env.image, this._element);
@@ -178,6 +186,9 @@ export class Annotorious {
   on = (event, handler) =>
     this._emitter.on(event, handler);
 
+  once = (event, handler) =>
+    this._emitter.once(event, handler);
+
   get readOnly() {
     return this._app.current.readOnly;
   }
@@ -185,14 +196,14 @@ export class Annotorious {
   set readOnly(readOnly) {
     this._app.current.readOnly = readOnly;
   }
-  
+
   removeAnnotation = annotationOrId =>
     this._app.current.removeAnnotation(this._wrap(annotationOrId));
 
   saveSelected = () =>
     this._app.current.saveSelected();
 
-  selectAnnotation = annotationOrId => {    
+  selectAnnotation = annotationOrId => {
     const selected = this._app.current.selectAnnotation(this._wrap(annotationOrId));
     return selected?.underlying;
   }
@@ -209,11 +220,14 @@ export class Annotorious {
   setDrawingTool = shape =>
     this._app.current.setDrawingTool(shape);
 
+  setServerTime = timestamp =>
+    this._env.setServerTime(timestamp);
+
   setVisible = visible =>
     this._app.current.setVisible(visible);
 
-  setServerTime = timestamp =>
-    this._env.setServerTime(timestamp);
+  setWidgets = widgets =>
+    this._app.current.setWidgets(widgets);
 
   updateSelected = (annotation, saveImmediately) => {
     let updated = null;
@@ -222,7 +236,7 @@ export class Annotorious {
       updated = new WebAnnotation(annotation);
     else if (annotation.type === 'Selection')
       updated = new Selection(annotation.target, annotation.body);
-    
+
     if (updated)
       this._app.current.updateSelected(updated, saveImmediately);
   }
