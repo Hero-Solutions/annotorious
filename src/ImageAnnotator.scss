@@ -50,7 +50,7 @@
 
   .a9s-outer {
     stroke:rgba(0, 0, 0, 0.7);
-    stroke-width:3px;
+    stroke-width:2px;
     fill: transparent;
   }
 
@@ -66,9 +66,67 @@
 
 .condition-red {
   .a9s-outer {
-    stroke:rgba(255, 0, 0, 0.7);
-    stroke-width:3px;
-    fill: transparent;
+    stroke: rgba(255, 0, 0, 0.7);
+  }
+}
+
+.condition-green {
+  .a9s-outer {
+    stroke: rgba(0, 255, 0, 0.7);
+  }
+}
+
+.condition-blue {
+  .a9s-outer {
+    stroke: rgba(0, 0, 255, 0.7);
+  }
+}
+
+.condition-orange {
+  .a9s-outer {
+    stroke: rgba(255, 165, 0, 0.7);
+  }
+}
+
+.condition-rect-red {
+  .a9s-outer {
+    stroke: rgba(255, 0, 0, 0.7);
+    fill: url(#rect-red);
+  }
+}
+
+.condition-diagonal-rect-red {
+  .a9s-outer {
+    stroke: rgba(255, 0, 0, 0.7);
+    fill: url(#diagonal-rect-red);
+  }
+}
+
+.condition-disconnected-cross-red {
+  .a9s-outer {
+    stroke: rgba(255, 0, 0, 0.7);
+    fill: url(#disconnected-cross-red);
+  }
+}
+
+.condition-diagonal-rect-green {
+  .a9s-outer {
+    stroke: rgba(0, 255, 0, 0.7);
+    fill: url(#diagonal-rect-green);
+  }
+}
+
+.condition-disconnected-cross-green {
+  .a9s-outer {
+    stroke: rgba(0, 255, 0, 0.7);
+    fill: url(#disconnected-cross-green);
+  }
+}
+
+.condition-diagonal-rect-orange {
+  .a9s-outer {
+    stroke: rgba(255, 165, 0, 0.7);
+    fill: url(#diagonal-rect-orange);
   }
 }
 
