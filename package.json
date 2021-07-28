@@ -40,7 +40,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@recogito/recogito-client-core": "1.3.4",
+    "@recogito/recogito-client-core": "https://github.com/Hero-Solutions/recogito-client-core/tarball/condition-reports",
     "preact": "^10.5.13",
     "tiny-emitter": "^2.1.0"
   }
