@@ -106,7 +106,7 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
       case 'condition-red-green-blue':
         classes = [
           'condition-three-strokes condition-stroke-red',
-          'condition-three-strokes condition-stroke-green condition-stroke-two'
+          'condition-three-strokes condition-stroke-green condition-stroke-two',
           'condition-three-strokes condition-stroke-blue condition-stroke-three'
         ];
         break;
