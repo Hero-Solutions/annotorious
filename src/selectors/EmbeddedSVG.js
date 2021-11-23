@@ -62,10 +62,20 @@ export const drawEmbeddedSVG = annotation => {
 
   const g = document.createElementNS(SVG_NAMESPACE, 'g');
 
-  const outer = shape.cloneNode(true);
-  outer.setAttribute('class', 'a9s-outer');
+  const outer1 = shape.cloneNode(true);
+  const outer2 = shape.cloneNode(true);
+  const outer3 = shape.cloneNode(true);
+  outer1.setAttribute('class', 'a9s-outer');
+  outer2.setAttribute('class', 'a9s-outer');
+  outer3.setAttribute('class', 'a9s-outer');
 
-  g.appendChild(outer);
+  outer1.setAttribute('style', 'stroke: green');
+  outer2.setAttribute('style', 'stroke: red; stroke-dasharray: 40, 20');
+  outer3.setAttribute('style', 'stroke: blue; stroke-dasharray: 20, 40');
+
+  g.appendChild(outer1);
+  g.appendChild(outer2);
+  g.appendChild(outer3);
 
   return g;
 }
