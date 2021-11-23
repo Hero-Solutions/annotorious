@@ -77,12 +77,25 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
 
   const g = document.createElementNS(SVG_NAMESPACE, 'g');
 
-  const outerRect  = document.createElementNS(SVG_NAMESPACE, 'rect');
+  const outerRect1  = document.createElementNS(SVG_NAMESPACE, 'rect');
+  const outerRect2  = document.createElementNS(SVG_NAMESPACE, 'rect');
+  const outerRect3  = document.createElementNS(SVG_NAMESPACE, 'rect');
 
-  outerRect.setAttribute('class', 'a9s-outer');
-  setXYWH(outerRect, x, y, w, h);
+  outerRect1.setAttribute('style', 'stroke: green');
+  outerRect2.setAttribute('style', 'stroke: red; stroke-dasharray: 40, 20');
+  outerRect3.setAttribute('style', 'stroke: blue; stroke-dasharray: 20, 40');
 
-  g.appendChild(outerRect);
+  outerRect1.setAttribute('class', 'a9s-outer');
+  outerRect2.setAttribute('class', 'a9s-outer');
+  outerRect3.setAttribute('class', 'a9s-outer');
+
+  setXYWH(outerRect1, x, y, w, h);
+  setXYWH(outerRect2, x, y, w, h);
+  setXYWH(outerRect3, x, y, w, h);
+
+  g.appendChild(outerRect1);
+  g.appendChild(outerRect2);
+  g.appendChild(outerRect3);
 
   return g;
 }
@@ -101,9 +114,10 @@ export const getRectSize = g => {
 
 /** Applies the (x, y, w, h)-values to the rects in the SVG group **/
 export const setRectSize = (g, x, y, w, h) => {
-  const outerRect = g.querySelector('.a9s-outer');
-
-  setXYWH(outerRect, x, y, w, h);
+  const outerRects = g.querySelectorAll('.a9s-outer');
+  for(var i = 0; i < outerRects.length; i++) {
+    setXYWH(outerRects[i], x, y, w, h);
+  }
 }
 
 /** 
