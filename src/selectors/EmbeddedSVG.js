@@ -90,7 +90,7 @@ export const drawEmbeddedSVG = annotation => {
       case 'condition-red-green-blue':
         classes = [
           'condition-three-strokes condition-stroke-red',
-          'condition-three-strokes condition-stroke-green condition-stroke-two'
+          'condition-three-strokes condition-stroke-green condition-stroke-two',
           'condition-three-strokes condition-stroke-blue condition-stroke-three'
         ];
         break;
