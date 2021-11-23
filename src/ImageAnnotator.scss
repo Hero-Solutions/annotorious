@@ -105,6 +105,22 @@
   stroke:#fff000 !important;
 } 
 
+.condition-two-strokes {
+    stroke-dasharray: 20;
+}
+
+.condition-three-strokes {
+    stroke-dasharray: 20, 40;
+}
+
+.condition-stroke-two {
+    stroke-dashoffset: 20;
+}
+
+.condition-stroke-three {
+    stroke-dashoffset: 40;
+}
+
 .a9s-annotation.editable {
 
   .a9s-outer {
