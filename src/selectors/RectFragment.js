@@ -85,6 +85,7 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
       } else {
         outerRect.setAttribute('class', 'a9s-outer ' + window.annotoriousAnnotationClasses[i]);
       }
+      setXYWH(outerRect, x, y, w, h);
       g.appendChild(outerRect);
     }
   } else {
