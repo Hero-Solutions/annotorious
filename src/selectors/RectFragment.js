@@ -82,9 +82,9 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
   setXYWH(outerRect, x, y, w, h);
   g.appendChild(outerRect);
 
-  if(annotation.target.styleClass) {
+  if(arg1.type === 'Annotation' && arg1.target.styleClass) {
     var classes = [];
-    switch(annotation.target.styleClass) {
+    switch(arg1.target.styleClass) {
       case 'condition-red-green':
         classes = [
           'condition-two-strokes condition-stroke-red',
