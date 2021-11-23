@@ -77,22 +77,46 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
 
   const g = document.createElementNS(SVG_NAMESPACE, 'g');
 
-  if(window.hasOwnProperty('annotoriousAnnotationClasses')) {
-    for(var i = 0; i < window.annotoriousAnnotationClasses.length; i++) {
-      const outerRect  = document.createElementNS(SVG_NAMESPACE, 'rect');
-      if(window.annotoriousAnnotationClasses[i] === '') {
-        outerRect.setAttribute('class', 'a9s-outer');
-      } else {
-        outerRect.setAttribute('class', 'a9s-outer ' + window.annotoriousAnnotationClasses[i]);
-      }
-      setXYWH(outerRect, x, y, w, h);
-      g.appendChild(outerRect);
+  const outerRect  = document.createElementNS(SVG_NAMESPACE, 'rect');
+  outerRect.setAttribute('class', 'a9s-outer');
+  setXYWH(outerRect, x, y, w, h);
+  g.appendChild(outerRect);
+
+  if(annotation.target.styleClass) {
+    var classes = [];
+    switch(annotation.target.styleClass) {
+      case 'condition-red-green':
+        classes = [
+          'condition-two-strokes condition-stroke-red',
+          'condition-two-strokes condition-stroke-green condition-stroke-two'
+        ];
+        break;
+      case 'condition-red-blue':
+        classes = [
+          'condition-two-strokes condition-stroke-red',
+          'condition-two-strokes condition-stroke-blue condition-stroke-two'
+        ];
+        break;
+      case 'condition-green-blue':
+        classes = [
+          'condition-two-strokes condition-stroke-green',
+          'condition-two-strokes condition-stroke-blue condition-stroke-two'
+        ];
+        break;
+      case 'condition-red-green-blue':
+        classes = [
+          'condition-three-strokes condition-stroke-red',
+          'condition-three-strokes condition-stroke-green condition-stroke-two'
+          'condition-three-strokes condition-stroke-blue condition-stroke-three'
+        ];
+        break;
     }
-  } else {
-    const outerRect  = document.createElementNS(SVG_NAMESPACE, 'rect');
-    outerRect.setAttribute('class', 'a9s-outer');
-    setXYWH(outerRect, x, y, w, h);
-    g.appendChild(outerRect);
+    for(var i = 0; i < classes.length; i++) {
+      const outer  = document.createElementNS(SVG_NAMESPACE, 'rect');
+      outer.setAttribute('class', 'a9s-outer ' + classes[i]);
+      setXYWH(outer, x, y, w, h);
+      g.appendChild(outer);
+    }
   }
 
   return g;

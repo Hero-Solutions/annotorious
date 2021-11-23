@@ -62,20 +62,44 @@ export const drawEmbeddedSVG = annotation => {
 
   const g = document.createElementNS(SVG_NAMESPACE, 'g');
 
-  if(window.hasOwnProperty('annotoriousAnnotationClasses')) {
-    for(var i = 0; i < window.annotoriousAnnotationClasses.length; i++) {
+  const outerSvg = shape.cloneNode(true);
+  outerSvg.setAttribute('class', 'a9s-outer');
+  g.appendChild(outerSvg);
+
+  if(annotation.target.styleClass) {
+    var classes = [];
+    switch(annotation.target.styleClass) {
+      case 'condition-red-green':
+        classes = [
+          'condition-two-strokes condition-stroke-red',
+          'condition-two-strokes condition-stroke-green condition-stroke-two'
+        ];
+        break;
+      case 'condition-red-blue':
+        classes = [
+          'condition-two-strokes condition-stroke-red',
+          'condition-two-strokes condition-stroke-blue condition-stroke-two'
+        ];
+        break;
+      case 'condition-green-blue':
+        classes = [
+          'condition-two-strokes condition-stroke-green',
+          'condition-two-strokes condition-stroke-blue condition-stroke-two'
+        ];
+        break;
+      case 'condition-red-green-blue':
+        classes = [
+          'condition-three-strokes condition-stroke-red',
+          'condition-three-strokes condition-stroke-green condition-stroke-two'
+          'condition-three-strokes condition-stroke-blue condition-stroke-three'
+        ];
+        break;
+    }
+    for(var i = 0; i < classes.length; i++) {
       const outer = shape.cloneNode(true);
-      if(window.annotoriousAnnotationClasses[i] === '') {
-        outer.setAttribute('class', 'a9s-outer');
-      } else {
-        outer.setAttribute('class', 'a9s-outer ' + window.annotoriousAnnotationClasses[i]);
-      }
+      outer.setAttribute('class', 'a9s-outer ' + classes[i]);
       g.appendChild(outer);
     }
-  } else {
-    const outer = shape.cloneNode(true);
-    outer.setAttribute('class', 'a9s-outer');
-    g.appendChild(outer);
   }
 
   return g;

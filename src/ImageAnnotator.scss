@@ -40,6 +40,10 @@
   pointer-events:none;
 }
 
+.a9s-annotation:hover .a9s-outer {
+    stroke: #fff000 !important;
+}
+
 .a9s-annotation, .a9s-selection {
 
   rect, circle, ellipse, path, polygon {
@@ -55,7 +59,7 @@
   }
 
   .a9s-outer:hover {
-    stroke:#fff000;
+    stroke: #fff000 !important;
   }
 
   .a9s-formatter-el {
@@ -64,69 +68,65 @@
 
 }
 
-.condition-red .a9s-outer,
+.condition-red .a9s-outer {
+  stroke: rgba(255, 0, 0);
+}
+
 .stroke-red {
-  stroke: rgba(255, 0, 0, 0.7);
+  stroke: rgba(255, 0, 0) !important;
 }
 
-text.condition-red {
-  fill: rgba(255, 0, 0, 0.7);
+.condition-green .a9s-outer {
+  stroke: rgba(0, 255, 0);
 }
 
-.condition-green .a9s-outer,
 .stroke-green {
-  stroke: rgba(0, 255, 0, 0.7);
+  stroke: rgba(0, 255, 0) !important;
 }
 
-text.condition-green {
-  fill: rgba(0, 255, 0, 0.7);
+.condition-blue .a9s-outer {
+  stroke: rgba(0, 0, 255);
 }
 
-.condition-blue .a9s-outer,
 .stroke-blue {
-  stroke: rgba(0, 0, 255, 0.7);
+  stroke: rgba(0, 0, 255) !important;
 }
 
-text.condition-blue {
-  fill: rgba(0, 0, 255, 0.7);
+.condition-orange .a9s-outer {
+  stroke: rgba(255, 165, 0);
 }
 
-.condition-orange .a9s-outer,
 .stroke-orange {
-  stroke: rgba(255, 165, 0, 0.7);
-}
-
-text.condition-orange {
-  fill: rgba(255, 165, 0, 0.7);
+  stroke: rgba(255, 165, 0) !important;
 }
 
 .a9s-annotation.selected .a9s-outer,
 .a9s-selection .a9s-outer {
-  stroke:#fff000;
+  stroke:#fff000 !important;
 } 
 
 .a9s-annotation.editable {
 
   .a9s-outer {
-    stroke:#fff000;
-    cursor:move;
+    stroke: #fff000 !important;
+    cursor: move;
   }
 
   .a9s-outer:hover {
-    fill:rgba(255, 240, 0, 0.1);
+    fill: rgba(255, 240, 0, 0.1) !important;
   }
 
 }
 
 .a9s-handle {
-  cursor:move;
+  cursor: move;
 
   .a9s-handle-outer {
-    stroke:#000;
-    fill:#000;
+    stroke: #000;
+    fill: #000;
   }
 }
 
 .a9s-handle:hover .a9s-handle-outer {
-  fill:#fff000;
+  fill:#fff000 !important;
 }
