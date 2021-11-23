@@ -77,25 +77,22 @@ export const drawRect = (arg1, arg2, arg3, arg4) => {
 
   const g = document.createElementNS(SVG_NAMESPACE, 'g');
 
-  const outerRect1  = document.createElementNS(SVG_NAMESPACE, 'rect');
-  const outerRect2  = document.createElementNS(SVG_NAMESPACE, 'rect');
-  const outerRect3  = document.createElementNS(SVG_NAMESPACE, 'rect');
-
-  outerRect1.setAttribute('style', 'stroke: green');
-  outerRect2.setAttribute('style', 'stroke: red; stroke-dasharray: 40, 20');
-  outerRect3.setAttribute('style', 'stroke: blue; stroke-dasharray: 20, 40');
-
-  outerRect1.setAttribute('class', 'a9s-outer');
-  outerRect2.setAttribute('class', 'a9s-outer');
-  outerRect3.setAttribute('class', 'a9s-outer');
-
-  setXYWH(outerRect1, x, y, w, h);
-  setXYWH(outerRect2, x, y, w, h);
-  setXYWH(outerRect3, x, y, w, h);
-
-  g.appendChild(outerRect1);
-  g.appendChild(outerRect2);
-  g.appendChild(outerRect3);
+  if(window.hasOwnProperty('annotoriousAnnotationClasses')) {
+    for(var i = 0; i < window.annotoriousAnnotationClasses.length; i++) {
+      const outerRect  = document.createElementNS(SVG_NAMESPACE, 'rect');
+      if(window.annotoriousAnnotationClasses[i] === '') {
+        outerRect.setAttribute('class', 'a9s-outer');
+      } else {
+        outerRect.setAttribute('class', 'a9s-outer ' + window.annotoriousAnnotationClasses[i]);
+      }
+      g.appendChild(outerRect);
+    }
+  } else {
+    const outerRect  = document.createElementNS(SVG_NAMESPACE, 'rect');
+    outerRect.setAttribute('class', 'a9s-outer');
+    setXYWH(outerRect, x, y, w, h);
+    g.appendChild(outerRect);
+  }
 
   return g;
 }
