@@ -345,6 +345,11 @@ export default class AnnotationLayer extends EventEmitter {
     const readOnly = this.readOnly || annotation.readOnly;
 
     if (!readOnly) {
+
+      if(annotation.underlying.body.length == 0 && config.hasOwnProperty('damageType') && config.damageType != '') {
+        annotation.underlying.body.push({ 'type': 'TextualBody', 'value': config.damageType });
+      }
+
       // Replace the shape with an editable version
       shape.parentNode.removeChild(shape);
 
